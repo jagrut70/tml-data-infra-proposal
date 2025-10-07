@@ -1,0 +1,12 @@
+name: tml_data_infra_demo
+version: 1.0.0
+profile: tml_demo
+config-version: 2
+
+models:
+  tml_data_infra_demo:
+    +materialized: table
+    staging:
+      +schema: staging
+    marts:
+      +schema: marts

@@ -1,0 +1,2 @@
+url,fetch_ts,status,content_type,sha256,raw_payload
+https://example.com/,2025-01-01T00:00:00Z,200,text/html,deadbeef,"<html>Hello</html>"

@@ -1,0 +1,18 @@
+# Core
+pyspark>=3.5.0
+delta-spark>=3.2.0
+kafka-python>=2.0.2
+dbt-core>=1.8.0
+dbt-duckdb>=1.8.0  # for local docs demo; replace with your warehouse adapter
+scrapy>=2.11.0
+playwright>=1.47.0
+beautifulsoup4>=4.12.0
+readability-lxml>=0.8.1
+tldextract>=5.1.2
+simhash>=2.1.2
+datasketch>=1.6.4     # MinHash/LSH
+faiss-cpu>=1.8.0.post1
+ray>=2.35.0
+great-expectations>=1.2.0
+pyyaml>=6.0.2
+rich>=13.7.1

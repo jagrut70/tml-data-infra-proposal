@@ -1,0 +1,14 @@
+{
+  "kafka": {
+    "bootstrap_servers": "localhost:9092",
+    "topic_raw_html": "raw_html",
+    "topic_media": "media"
+  },
+  "storage": {
+    "delta_base": "file:///tmp/tml_delta"
+  },
+  "streaming": {
+    "checkpoint_dir": "file:///tmp/tml_chkpts/stream_to_delta",
+    "microbatch_seconds": 10
+  }
+}

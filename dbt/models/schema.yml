@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: bronze_raw_web
+    tests:
+      - not_null:
+          column_name: url
+  - name: gold_train_catalog_text
+    tests:
+      - not_null:
+          column_name: doc_id
