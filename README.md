@@ -49,3 +49,46 @@ dbt deps && dbt seed && dbt run && dbt test && dbt docs generate
 
 ---
 Made with ❤️ as part of my application for **Software Engineer — Data Infrastructure**.
+
+```bash
+#!/bin/bash
+# GitHub Logout Script
+# Run this script to log out of your current GitHub account
+
+echo "🔍 Checking current Git configuration..."
+echo "Current user name: $(git config --global user.name)"
+echo "Current user email: $(git config --global user.email)"
+
+echo ""
+echo "🚪 Logging out of GitHub..."
+
+# Clear Git user configuration
+echo "Clearing Git user configuration..."
+git config --global --unset user.name
+git config --global --unset user.email
+
+# Clear GitHub credentials from macOS keychain
+echo "Clearing GitHub credentials from keychain..."
+echo "host=github.com" | git credential-osxkeychain erase
+echo "protocol=https" | git credential-osxkeychain erase
+
+# Alternative method to clear keychain
+echo "Using security command to clear GitHub credentials..."
+security delete-internet-password -s github.com 2>/dev/null || echo "No GitHub credentials found in keychain"
+
+# If GitHub CLI is installed, logout from there too
+if command -v gh &> /dev/null; then
+    echo "Logging out from GitHub CLI..."
+    gh auth logout
+fi
+
+echo ""
+echo "✅ GitHub logout complete!"
+echo ""
+echo "🔍 Verifying logout..."
+echo "User name: $(git config --global user.name)"
+echo "User email: $(git config --global user.email)"
+
+echo ""
+echo "📝 Next time you try to access GitHub, you'll be prompted to authenticate again."
+```
