@@ -16,39 +16,39 @@ This repo is a **work-sample skeleton** showing how I'd approach building a peta
 
 ```mermaid
 flowchart LR
-    subgraph Sources[External Sources]
-      W[Web / Crawler]:::src
-      P[Partners / OSS Corpora]:::src
+    subgraph Sources["External Sources"]
+      W["Web / Crawler"]:::src
+      P["Partners / OSS Corpora"]:::src
     end
 
-    W -->|HTML/Media| K[(Kafka<br/>raw_html, media, metrics)]:::mq
+    W -->|"HTML/Media"| K[("Kafka<br/>raw_html, media, metrics")]:::mq
     P --> K
 
-    subgraph Proc[Processing]
-      SS[Spark Structured Streaming<br/>(parse, normalize, extract)]:::compute
-      RY[Ray Workers<br/>(embeddings/OCR/ASR)]:::compute
+    subgraph Proc["Processing"]
+      SS["Spark Structured Streaming<br/>parse, normalize, extract"]:::compute
+      RY["Ray Workers<br/>embeddings/OCR/ASR"]:::compute
     end
 
     K --> SS
-    SS -->|raw→landing| BR[(Delta: Bronze)]:::delta
-    BR -->|curate + PII scrub| SL[(Delta: Silver)]:::delta
-    SL -->|tiered dedup| DD[Dedup Pipeline<br/>(SHA256 → MinHash/SimHash → ANN)]:::service
-    DD --> GD[(Delta: Gold<br/>Train Catalogs + Manifests)]:::delta
+    SS -->|"raw to landing"| BR[("Delta: Bronze")]:::delta
+    BR -->|"curate + PII scrub"| SL[("Delta: Silver")]:::delta
+    SL -->|"tiered dedup"| DD["Dedup Pipeline<br/>SHA256 to MinHash/SimHash to ANN"]:::service
+    DD --> GD[("Delta: Gold<br/>Train Catalogs + Manifests")]:::delta
 
-    subgraph Catalog[Discovery & Repro]
-      DBT[dbt models + tests + docs]:::tool
-      IDX[Search Index<br/>(BM25 + ANN)]:::tool
-      MF[Dataset Manifests<br/>(semver + content address)]:::tool
+    subgraph Catalog["Discovery & Repro"]
+      DBT["dbt models + tests + docs"]:::tool
+      IDX["Search Index<br/>BM25 + ANN"]:::tool
+      MF["Dataset Manifests<br/>semver + content address"]:::tool
     end
 
     GD --> DBT
     GD --> IDX
     GD --> MF
 
-    subgraph Consumers[Researchers & Training]
-      TR[Training Jobs]:::user
-      EV[Evals / Slice Discovery]:::user
-      VZ[Analytics / Viz]:::user
+    subgraph Consumers["Researchers & Training"]
+      TR["Training Jobs"]:::user
+      EV["Evals / Slice Discovery"]:::user
+      VZ["Analytics / Viz"]:::user
     end
 
     MF --> TR
